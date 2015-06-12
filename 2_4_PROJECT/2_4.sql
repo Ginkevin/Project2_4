@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2015 at 08:49 PM
+-- Generation Time: Jun 12, 2015 at 03:35 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -1404,7 +1404,9 @@ INSERT INTO `persoon_naar_festival` (`festival`, `persoon`) VALUES
 (100024, 1),
 (100019, 1),
 (100119, 1),
-(100219, 1);
+(100219, 1),
+(100005, 11),
+(100222, 11);
 
 -- --------------------------------------------------------
 
@@ -1426,7 +1428,8 @@ INSERT INTO `vriendenlijst` (`vriend1`, `vriend2`) VALUES
 (1, 67),
 (1, 89),
 (1, 44),
-(1, 32);
+(1, 32),
+(11, 1);
 
 --
 -- Indexes for dumped tables
