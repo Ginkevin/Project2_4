@@ -1,15 +1,21 @@
 <?php
-include("../mysql/RandomQuery.php");
-include("../java/socketCommunication.php");
+session_start();
+include("../mysql/mysqlQuery.php");
+include("../java/socketSend.php");
 include("../java/socketReceive.php");
-$random_connect = new RandomQuery();
+include '../functions/calender/calendar.php';
+
+$random_connect = new mysqlQuery();
 $random_connect->getRandom($_GET["name"]);
 $random_result = $random_connect->getResult();
 
-$java_connect = new socketCommunication($random_result["festival_id"]);
+$java_connect = new socketSend("GET,ARTIST," . $random_result["festival_id"]);
 $java_connect->sendSocket();
+
 $java_connect = new SocketReceive();
 $java_result = $java_connect->getResponse();
+
+$calendar = new Calendar();
 echo'
 <html>
 	<head>
@@ -23,7 +29,8 @@ echo'
 	<body id="top">
 		<!-- Header -->
 			<header id="header">
-			<img src="'.$random_result['afbeelding_url'].'" height="300" width="400"">> 
+			<img src="'.$random_result['afbeelding_url'].'" height="300" width="400"">>  </br>
+		
 			</header>
 
 		<!-- Main -->
@@ -36,10 +43,9 @@ echo'
 						</header>
 						<p>'.$java_result .' </p>
 						<ul class="actions">
-							<li><a href="#" class="button">buy ticket </a></li>
+							<li><button onclick="window.open(\'http://127.0.0.1/2_4/functions/calender/vieuw.php?year='.substr($random_result['datum_start'],0,4).'&month='. substr($random_result['datum_start'],5,2).'&day='. substr($random_result['datum_start'],8,2).'&artist='. $_GET["name"].'\',\'name\',\'width=650,height=650\');" class="button">Order Ticket</button> </li>
 						</ul>
 					</section>
-
 				<!-- Two -->
 					<section id="two">
 						<h2>Friends</h2>
@@ -47,7 +53,7 @@ echo'
 							<article class="6u 12u$(xsmall) work-item">
 								<a href="images/fulls/01.jpg" class="image fit thumb"><img src="images/thumbs/01.jpg" alt="" /></a>
 								<h3></h3>
-								<p></p>
+								<p>echo </p>
 							</article>
 							
 							<article class="6u$ 12u$(xsmall) work-item">
@@ -61,13 +67,13 @@ echo'
 						</ul>
 					</section>
 
-
+			
 			</div>
 
 		<!-- Footer -->
 			<footer id="footer">
 				<ul class="icons">
-				
+
 				</ul>
 				<ul class="copyright">
 				</ul>
@@ -84,5 +90,4 @@ echo'
 	</body>
 </html> 
 ';
-	
 ?>

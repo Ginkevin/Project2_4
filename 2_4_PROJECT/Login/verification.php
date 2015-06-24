@@ -9,7 +9,7 @@ start();
 				$_SESSION["achternaam"] = $connection->getLastname();
 				$_SESSION["avatar"] = $connection->getAvatar();
 				$_SESSION["userid"] = $connection->getID();
-				header("Location: http://127.0.0.1/2_4/Template/index.php");
+				header("Location: ../Template/home.php");
 				die();
 		}
 		else {
